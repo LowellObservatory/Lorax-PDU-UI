@@ -19,7 +19,7 @@ function PDUDisplay() {
 
     return (
         <div class="pdudisp-div">
-            <p>name of pdu</p>
+        <h1>name of pdu</h1>
         <Col xs="auto" style={{ minWidth: 150, paddingLeft: 10, paddingRight: 0 }}>
             <PDUSwitch switchLabel="mount" state={true} />
             <PDUSwitch switchLabel="filter wheel" state={false} />
