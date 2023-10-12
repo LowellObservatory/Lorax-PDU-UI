@@ -11,14 +11,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import configData from "../config.json";
 import './PDUDisplay.css';
 
-function PDUDisplay() {
+function PDUDisplay(props) {
+
+    
+    console.log(props.bt);
+    console.log(props.ct);
 
     useEffect(() => { 
       const initialSetup = 8;
     }, []);
 
     return (
-        <div class="pdudisp-div">
+        <div className="pdudisp-div">
         <h1>name of pdu</h1>
         <Col xs="auto" style={{ minWidth: 150, paddingLeft: 10, paddingRight: 0 }}>
             <PDUSwitch switchLabel="mount" state={true} />
