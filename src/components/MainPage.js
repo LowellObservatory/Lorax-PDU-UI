@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PDUNavbar from "./PDUNavbar";
-import PDUSwitch from './PDUSwitch';
 import PDUDisplay from './PDUDisplay';
 import {
     Container,
@@ -16,11 +15,13 @@ import './MainPage.css';
 
 function MainPage() {
 
-    // const [Connected, setConnected] = useState(false);
+    // const [agents, setAgents] = useState([]);
     const [ta, setTA] = useState([]);
+    
     const {
         client,
         message,
+        topic,
         handleConnect,
         handlePublish,
         handleSubscribe,
@@ -28,40 +29,44 @@ function MainPage() {
         // handleDisconnect
     } = useBrokerMQTT();
 
-    useEffect(() => { // First set up the "topics" dictionary.
-        var agentarray = []
+    useEffect(() => {
+        handleConnect(configData.Broker_URL);
+
         var agents = configData.PDUAgents;
         var keys = Object.keys(agents);
         var t = [];
         for (let i = 0; i < keys.length; i++) {
-            // bt.push(agents[keys[i]]["Broadcast_Topic"]);
-            // ct.push(agents[keys[i]]["Control_Topic"]);
-            t.push({bt: agents[keys[i]]["Broadcast_Topic"],ct: agents[keys[i]]["Control_Topic"]});
-            
+            t.push({nm: keys[i],
+                    bt: agents[keys[i]]["Broadcast_Topic"],
+                    ct: agents[keys[i]]["Control_Topic"]});
         }
         setTA(t)
-        // bt = 
-        // for (let i = 0; i < keys.length; i++) {
-        //     agentarray.append((agents[keys[i]]["Broadcast_Topic"], agents[keys[i]]["Control_Topic"]));
-        // }
-        // console.log(agents)
-        // setAgents(agentarray)
-        // console.log(agents)
-        // var keys = Object.keys(agents);
-        // console.log(keys)
-        // var t_dict = {};
-        // for (let i = 0; i < keys.length; i++) {
-        //     t_dict[keys[i]] = agents[keys[i]]["Broadcast_Topic"];
-        //     // console.log(t_dict[keys[i]])
-        // }
-
-        // handleConnect(configData.Broker_URL);
-
-        // for (let i = 0; i < keys.length; i++) {
-        //     // console.log("t_dict");
-        //     handleSubscribe(t_dict[keys[i]], 0)
-        // }
     }, []);
+
+    useEffect(() => {
+        var agents = configData.PDUAgents;
+        var keys = Object.keys(agents);
+        for (let i = 0; i < keys.length; i++) {
+            handleSubscribe(agents[keys[i]]["Broadcast_Topic"], 0);
+            handleSubscribe(agents[keys[i]]["Control_Topic"], 0);
+        }
+    }, [client]);
+
+    const sendSwitch = (control_topic, switchnum, switchstate) => {
+        // console.log(control_topic);
+        // console.log(switchnum);
+        // console.log(switchstate);
+        switchnum = switchnum + 1;     // "0" indexed to "1" indexed
+        // console.log(typeof switchnum);
+        if (switchstate) {
+            handlePublish(control_topic, 0, "outlet_off(" + switchnum + ")");
+        } else {
+            handlePublish(control_topic, 0, "outlet_on(" + switchnum + ")");
+        }
+        // Determine which control broker topic to use.
+        // send command "outlet_on(outletnum)" or "outlet_off(outletnum)" on that topic.
+        // add this sendCommand to PDUDisplay below and then on to PDUSwitch.
+    }
 
     return (
         <Container fluid style={{ width: "98%", height: "100%" }}>
@@ -74,13 +79,15 @@ function MainPage() {
             <Row  >
                 {ta.map(function(data, i) {
                     return (
-                        <PDUDisplay bt={data.bt} ct = {data.ct} key = {i} />
+                        <PDUDisplay info = {data}
+                        message = {message}
+                        topic = {topic}
+                        sendSwitch = {sendSwitch}
+                        zorb = {i} key = {i} />
                     )
                 })}
-                
             </Row>
         </Container >
-
     )
 }
 

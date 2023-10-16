@@ -1,12 +1,12 @@
 {
     "PDUAgents": {
         "pdu1": {
-            "Broadcast_Topic": "lorax/timo/pdu1/broadcast",
-            "Control_Topic": "lorax/timo/dto/pdu1"
+            "Broadcast_Topic": "lorax/apc/pdu1/broadcast",
+            "Control_Topic": "lorax/apc/dto/pdu1"
         },
         "pdu2": {
-            "Broadcast_Topic": "lorax/timo/pdu2/broadcast",
-            "Control_Topic": "lorax/timo/dto/pdu2"
+            "Broadcast_Topic": "lorax/apc/pdu2/broadcast",
+            "Control_Topic": "lorax/apc/dto/pdu2"
         }
     },
     "Broker_Host": "tanagra:61614",

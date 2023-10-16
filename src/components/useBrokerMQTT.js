@@ -5,6 +5,7 @@ function useBrokerMQTT() {
 
     const [client, setClient] = useState(null);
     const [message, setMessage] = useState(null);
+    const [topic, setTopic] = useState(null);
 
     function handleConnect(url) {
         const options = {
@@ -28,25 +29,25 @@ function useBrokerMQTT() {
 
         console.log(" in handleConnect");
 
-        console.log(url)
+        // console.log(url)
 
         doConnect(url, options);
     }
 
     function doConnect(host, mqttOptions) {
         console.log("in doConnect");
-        console.log(host);
-        console.log(mqttOptions);
+        // console.log(host);
+        // console.log(mqttOptions);
 
         var c = mqtt.connect(host, mqttOptions);
         var parser = new DOMParser();
 
 
         if (c) {
-            console.log("setting up onmessage");
+            // console.log("setting up onmessage");
             c.on("connect", () => {
                 console.log("Connected");
-                console.log(c);
+                // console.log(c);
             });
             c.on("error", (err) => {
                 console.error("Connection error: ", err);
@@ -56,9 +57,11 @@ function useBrokerMQTT() {
                 // const payload = { topic, message: message.toString() };
                 const changed = message.toString();
                 // console.log("got a message");
+                // console.log(topic)
 
                 var doc = parser.parseFromString(changed, 'text/xml');
                 // console.log((new XMLSerializer()).serializeToString(doc));
+                setTopic(topic)
                 setMessage(doc);
             });
         }
@@ -112,6 +115,7 @@ function useBrokerMQTT() {
     return {
         client,
         message,
+        topic,
         handleConnect,
         handlePublish,
         handleSubscribe,

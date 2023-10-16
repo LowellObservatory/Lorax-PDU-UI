@@ -9,10 +9,16 @@ function PDUSwitch(props) {
 
     const [switchState, setSwitchState] = useState(props.state);
 
-    // defaultChecked={switchState}
+    // console.log(props.state)
 
     const handleChange=(e)=>{
-        setSwitchState(!switchState)
+        // console.log(switchState);
+        setSwitchState(!switchState);
+        // console.log(switchState);
+        var num = props.switchnum;
+        // console.log(typeof num);
+        props.sendSwitch(props.control_topic, num, switchState);
+        // console.log(switchState);
     }
 
     return (
