@@ -9,10 +9,13 @@ function PDUSwitch(props) {
 
     const [switchState, setSwitchState] = useState(props.state);
 
+    // If the state of the switch (in props) changes set the switchState
+    // to that value.
     useEffect(() => {
         setSwitchState( props.state )
-   }, [props.state ])
+    }, [ props.state ])
 
+    // The callback for when the user clicks on a switch.
     const handleChange=(e)=>{
         setSwitchState(!switchState);
         var num = props.switchnum;
@@ -20,6 +23,8 @@ function PDUSwitch(props) {
     }
 
     return (
+        // The switch has a label that comes in from props and is
+        // set to the value in 'switchState', true or false.
         <Form.Check
             type="switch"
             id="outlet-switch"

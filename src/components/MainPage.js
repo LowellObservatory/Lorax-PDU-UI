@@ -29,6 +29,8 @@ function MainPage() {
         // handleDisconnect
     } = useBrokerMQTT();
 
+    // Connect to the message broker, then assemble the config data into
+    // a useful format to use below.  (this only happens once)
     useEffect(() => {
         handleConnect(configData.Broker_URL);
 
@@ -43,6 +45,8 @@ function MainPage() {
         setTA(t)
     }, []);
 
+    // When the client is ready, that is, connected, subscribe to all
+    // the topics in the config file. (this should only happen once)
     useEffect(() => {
         var agents = configData.PDUAgents;
         var keys = Object.keys(agents);
@@ -52,6 +56,8 @@ function MainPage() {
         }
     }, [client]);
 
+    // When a switch is switched on the interface, call the appropriate
+    // agent routine.
     const sendSwitch = (control_topic, switchnum, switchstate) => {
         switchnum = switchnum + 1;     // "0" indexed to "1" indexed
         if (switchstate) {
@@ -70,13 +76,18 @@ function MainPage() {
             
             {/* This is the Bootstrap Grid layout. */}
             <Row  >
+                {/* Call a function to draw a PDU display for each PDU in the config file.
+                    Pass in the 'data' which contains the broadcast and control
+                    broker topics. We pass in the current topic and message so
+                    the pdudisplay can react to new messages. We also pass in the 'sendSwitch'
+                    function to be called when a switch is switched. */}
                 {ta.map(function(data, i) {
                     return (
                         <PDUDisplay info = {data}
                         message = {message}
                         topic = {topic}
                         sendSwitch = {sendSwitch}
-                        zorb = {i} key = {i} />
+                        key = {i} />
                     )
                 })}
             </Row>

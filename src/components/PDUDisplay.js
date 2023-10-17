@@ -18,6 +18,7 @@ function PDUDisplay(props) {
     const [numoutlets, setNumoutlets] = useState(5);
     const [outlets, setOutlets] = useState([]);
 
+    // Do this once, set some things up when started.
     useEffect(() => {
         setBroadcast(props.info.bt);
         setControl(props.info.ct);
@@ -27,14 +28,19 @@ function PDUDisplay(props) {
         setOutlets(init_outlets);
     },[]);
 
+    // This is called when a new message comes in on the agent broadcast topic.
+    // We check to see if the message is for this PDU, and, if so, reconfigure
+    // both the outlet names and the outlet status's based on the broadcast status.
     useEffect(() => {
             if (props.topic === broadcast) {
-                // console.log("got a message, updateing");
+                // console.log(broadcast);
+                // get the pdu name from the message and update.
                 var pdu_name = props.message.getElementsByTagName("pdu_name");
                 pdu_name = pdu_name[0].childNodes[0].nodeValue;
                 setPduname(pdu_name);
                 document.getElementById(pduname).getElementsByClassName("pdu_name")[0].innerHTML = pdu_name;
 
+                // Get the number of outlets from the message and update.
                 var num_outlets = props.message.getElementsByTagName("number_of_outlets");
                 num_outlets = num_outlets[0].childNodes[0].nodeValue;
                 setNumoutlets(num_outlets);
@@ -45,6 +51,7 @@ function PDUDisplay(props) {
                 var outlet_stat = props.message.getElementsByTagName("status_all_outlets");
                 outlet_stat = outlet_stat[0].childNodes[0].nodeValue;
             
+                // Update the outlet names.
                 var new_names = outlet_names.split(",");
                 var new_stats = outlet_stat.split(",");
                 var outlets = [];
@@ -64,9 +71,15 @@ function PDUDisplay(props) {
     }, [props.message]);
     
     return (
+        // Return a div with the pdu name at the top and a set of labeled switches.
         <div id={pduname} className="pdudisp-div">
         <h1 className="pdu_name" id="pdu_name">{props.info.nm}</h1>
         <Col xs="auto" style={{ minWidth: 150, paddingLeft: 10, paddingRight: 0 }}>
+             {/* Call a function to draw all the switches for this PDU.
+                 Pass in the switch label and switch state from 'data'.
+                 We pass in the control topic so the switch can send it
+                 back to the MainPage when a switch is thrown.
+                 We also pass in the 'sendSwitch' function we got in props. */}
             {outlets.map(function(data, i) {
                 // console.log(outlets)
                 return (
