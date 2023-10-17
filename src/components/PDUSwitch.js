@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Form
   } from 'react-bootstrap';
@@ -9,16 +9,14 @@ function PDUSwitch(props) {
 
     const [switchState, setSwitchState] = useState(props.state);
 
-    // console.log(props.state)
+    useEffect(() => {
+        setSwitchState( props.state )
+   }, [props.state ])
 
     const handleChange=(e)=>{
-        // console.log(switchState);
         setSwitchState(!switchState);
-        // console.log(switchState);
         var num = props.switchnum;
-        // console.log(typeof num);
         props.sendSwitch(props.control_topic, num, switchState);
-        // console.log(switchState);
     }
 
     return (
