@@ -1,3 +1,8 @@
 .color-nav {
   background-color: rgb(141, 171, 255);
 }
+
+.navbar {
+    padding-right: 20px;
+    padding-left: 10px;
+}

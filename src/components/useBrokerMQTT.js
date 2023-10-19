@@ -29,8 +29,6 @@ function useBrokerMQTT() {
 
         console.log(" in handleConnect");
 
-        // console.log(url)
-
         doConnect(url, options);
     }
 

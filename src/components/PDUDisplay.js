@@ -57,6 +57,8 @@ function PDUDisplay(props) {
                 var outlets = [];
                 for (var i = 0; i < new_names.length; i++) {
                     new_names[i] = new_names[i].replaceAll(/[\[\]\']/g, "");
+       
+       
                     if (new_stats[i].includes("on")) {
                         new_stats[i] = true;
                     } else {
@@ -68,7 +70,7 @@ function PDUDisplay(props) {
                 }
                 setOutlets(outlets);
             }
-    }, [props.message]);
+    }, [props]);
     
     return (
         // Return a div with the pdu name at the top and a set of labeled switches.
@@ -82,10 +84,12 @@ function PDUDisplay(props) {
                  We also pass in the 'sendSwitch' function we got in props. */}
             {outlets.map(function(data, i) {
                 // console.log(outlets)
+                var label = data[0];
+                var state = data[1];
                 return (
                     <PDUSwitch 
-                    switchLabel = {data[0]}
-                    state = {data[1]}
+                    switchLabel = {label}
+                    state = {state}
                     control_topic = {control}
                     sendSwitch = {props.sendSwitch}
                     switchnum = {i}

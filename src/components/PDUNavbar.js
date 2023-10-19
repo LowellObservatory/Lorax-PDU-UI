@@ -1,7 +1,9 @@
 import React from 'react';
 import {
   Container,
-  Navbar
+  Navbar,
+  Nav,
+  NavItem
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PDUNavbar.css';
@@ -11,7 +13,7 @@ import logo from "../assets/images/lowelllogo_horizontal_black_web.png";
 function PDUNavbar() {
 
   return (
-    <Navbar className="color-nav" fixed="top" expand="lg">
+    <Navbar className="color-nav" fixed="top" expand="sm">
         <Navbar.Brand href="#home">
           <img
             src={logo}
@@ -21,9 +23,19 @@ function PDUNavbar() {
             alt="React Bootstrap logo"
           />
         </Navbar.Brand>
-        <Container>
-          <Navbar.Text>Lorax PDU Interface</Navbar.Text>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+        <Container className="justify-content-center">
+          {/* <Navbar.Text>Lorax PDU Interface</Navbar.Text> */}
+          Lorax PDU Interface
       </Container>
+      <Nav className="ml-auto">
+        <NavItem>
+            {/* <Navbar.Text>TiMo</Navbar.Text> */}
+            TiMo
+        </NavItem>
+      </Nav>
+      </Navbar.Collapse>
     </Navbar>
   )
 }
