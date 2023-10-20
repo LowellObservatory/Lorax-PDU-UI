@@ -4,7 +4,8 @@ import PDUSwitch from './PDUSwitch';
 import {
     Container,
     Row,
-    Col
+    Col,
+    Button
 } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -74,7 +75,7 @@ function PDUDisplay(props) {
     
     return (
         // Return a div with the pdu name at the top and a set of labeled switches.
-        <div id={pduname} className="pdudisp-div">
+        <div id={pduname} className="pdudisp-div" >
         <h1 className="pdu_name" id="pdu_name">{props.info.nm}</h1>
         <Col xs="auto" style={{ minWidth: 150, paddingLeft: 10, paddingRight: 0 }}>
              {/* Call a function to draw all the switches for this PDU.
@@ -96,7 +97,14 @@ function PDUDisplay(props) {
                     key = {i} />
                 )
             })}
+            <Row style={{ marginLeft: 0, marginRight: 0 }} ><p /></Row>
+            <Row style={{ marginLeft: 10, marginRight: 20 }} >
+                <Button variant="outline-dark" size="sm" onClick={props.toggleShowDelays} >
+                    Set delays now
+                </Button>
+            </Row>
         </Col>
+        {/* <Button variant="primary" onClick={toggleShowFilter}> */}
         </div>
     )
 }

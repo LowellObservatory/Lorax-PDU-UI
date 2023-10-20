@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PDUNavbar from "./PDUNavbar";
 import PDUDisplay from './PDUDisplay';
+import DelaysOffcan from './DelaysOffcan'
 import {
     Container,
     Row,
@@ -17,6 +18,7 @@ function MainPage() {
 
     // const [agents, setAgents] = useState([]);
     const [ta, setTA] = useState([]);
+    const [showDelays, setShowDelays] = React.useState(false);
     
     const {
         client,
@@ -28,6 +30,8 @@ function MainPage() {
         // handleUnsub,
         // handleDisconnect
     } = useBrokerMQTT();
+
+    const toggleShowDelays = () => setShowDelays(p => !p);
 
     // Connect to the message broker, then assemble the config data into
     // a useful format to use below.  (this only happens once)
@@ -86,12 +90,15 @@ function MainPage() {
                         <PDUDisplay info = {data}
                         message = {message}
                         topic = {topic}
+                        toggleShowDelays={toggleShowDelays}
                         sendSwitch = {sendSwitch}
                         key = {i} />
                     )
                 })}
+                <DelaysOffcan showDelays={showDelays} toggleShowDelays={toggleShowDelays} />
             </Row>
         </Container >
+        
     )
 }
 

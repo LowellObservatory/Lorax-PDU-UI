@@ -29,7 +29,7 @@ function PDUNavbar() {
           {/* <Navbar.Text>Lorax PDU Interface</Navbar.Text> */}
           Lorax PDU Interface
       </Container>
-      <Nav className="ml-auto">
+      <Nav className="ms-auto">
         <NavItem>
             {/* <Navbar.Text>TiMo</Navbar.Text> */}
             TiMo
