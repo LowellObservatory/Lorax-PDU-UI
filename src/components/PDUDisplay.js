@@ -51,24 +51,44 @@ function PDUDisplay(props) {
                 outlet_names = outlet_names[0].childNodes[0].nodeValue;
                 var outlet_stat = props.message.getElementsByTagName("status_all_outlets");
                 outlet_stat = outlet_stat[0].childNodes[0].nodeValue;
+                var outlet_ondelay = props.message.getElementsByTagName("delayon_all_outlets");
+                outlet_ondelay = outlet_ondelay[0].childNodes[0].nodeValue;
+                var outlet_offdelay = props.message.getElementsByTagName("delayoff_all_outlets");
+                outlet_offdelay = outlet_offdelay[0].childNodes[0].nodeValue;
+                var outlet_commandpending = props.message.getElementsByTagName("commandpending_all_outlets");
+                outlet_commandpending = outlet_commandpending[0].childNodes[0].nodeValue;
+                // console.log(outlet_ondelay);
+                // console.log(outlet_offdelay);
             
                 // Update the outlet names.
                 var new_names = outlet_names.split(",");
                 var new_stats = outlet_stat.split(",");
+                var new_on = outlet_ondelay.replaceAll(/[\[\]\']/g, "");
+                var new_off = outlet_offdelay.replaceAll(/[\[\]\']/g, "");
+                new_on = new_on.split(",");
+                new_off = new_off.split(",");
+                var new_pending = outlet_commandpending.split(",");
                 var outlets = [];
                 for (var i = 0; i < new_names.length; i++) {
                     new_names[i] = new_names[i].replaceAll(/[\[\]\']/g, "");
-       
        
                     if (new_stats[i].includes("on")) {
                         new_stats[i] = true;
                     } else {
                         new_stats[i] = false;
                     }
+
+                    if (new_pending[i].includes("True")) {
+                        new_pending[i] = true;
+                    } else {
+                        new_pending[i] = false;
+                    }
                 }
                 for (var i = 0; i < new_names.length; i++) {
-                    outlets.push([new_names[i], new_stats[i]]);
+                    outlets.push([new_names[i], new_stats[i],
+                        new_on[i], new_off[i], new_pending[i]]);
                 }
+                // console.log(outlets);
                 setOutlets(outlets);
             }
     }, [props]);
@@ -87,10 +107,12 @@ function PDUDisplay(props) {
                 // console.log(outlets)
                 var label = data[0];
                 var state = data[1];
+                var pending = data[4];
                 return (
                     <PDUSwitch 
                     switchLabel = {label}
                     state = {state}
+                    pending = {pending}
                     control_topic = {control}
                     sendSwitch = {props.sendSwitch}
                     switchnum = {i}
@@ -99,12 +121,11 @@ function PDUDisplay(props) {
             })}
             <Row style={{ marginLeft: 0, marginRight: 0 }} ><p /></Row>
             <Row style={{ marginLeft: 10, marginRight: 20 }} >
-                <Button variant="outline-dark" size="sm" onClick={props.toggleShowDelays} >
-                    Set delays now
+                <Button variant="outline-dark" size="sm" onClick={() => props.toggleShowDelays(outlets)} >
+                    View Delays
                 </Button>
             </Row>
         </Col>
-        {/* <Button variant="primary" onClick={toggleShowFilter}> */}
         </div>
     )
 }

@@ -29,6 +29,7 @@ function PDUSwitch(props) {
         // The switch has a label that comes in from props and is
         // set to the value in 'switchState', true or false.
         <Form.Check
+            style={props.pending ? { opacity:0.5, color: "red" } : { color: "black" }}
             type="switch"
             id="outlet-switch"
             label={props.switchLabel}
