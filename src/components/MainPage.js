@@ -98,7 +98,9 @@ function MainPage() {
                     Pass in the 'data' which contains the broadcast and control
                     broker topics. We pass in the current topic and message so
                     the pdudisplay can react to new messages. We also pass in the 'sendSwitch'
-                    function to be called when a switch is switched. */}
+                    function to be called when a switch is switched.  Also pass in toggleShowDelays
+                    and toggleShowSetDelay which trigger an offscreen component and a modal component.
+                     */}
                 {ta.map(function(data, i) {
                     return (
                         <PDUDisplay info = {data}
