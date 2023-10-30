@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PDUNavbar from "./PDUNavbar";
 import PDUDisplay from './PDUDisplay';
 import DelaysOffcan from './DelaysOffcan';
+import SetDelayModal from './SetDelayModal';
 import {
     Container,
     Row,
@@ -19,7 +20,10 @@ function MainPage() {
     // const [agents, setAgents] = useState([]);
     const [ta, setTA] = useState([]);
     const [showDelays, setShowDelays] = useState(false);
+    const [showSetDelay, setShowSetDelay] = useState(false);
     const [outlets, setOutlets] = useState(null);
+    const [setdelaypduname, setSetdelaypduname] = useState(null);
+    const [setdelaycontroltopic, setSetdelaycontroltopic] = useState(null);
     
     const {
         client,
@@ -35,6 +39,12 @@ function MainPage() {
     const toggleShowDelays = (outlets) => {
         setShowDelays(p => !p);
         setOutlets(outlets);
+    }
+
+    const toggleShowSetDelay = (pduname, control) => {
+        setShowSetDelay(p => !p);
+        setSetdelaypduname(pduname)
+        setSetdelaycontroltopic(control)
     }
 
     // Connect to the message broker, then assemble the config data into
@@ -95,11 +105,17 @@ function MainPage() {
                         message = {message}
                         topic = {topic}
                         toggleShowDelays={toggleShowDelays}
+                        toggleShowSetDelay={toggleShowSetDelay}
                         sendSwitch = {sendSwitch}
                         key = {i} />
                     )
                 })}
                 <DelaysOffcan outlets = {outlets} showDelays={showDelays} toggleShowDelays={toggleShowDelays} />
+                <SetDelayModal showSetDelay={showSetDelay}
+                    setdelaypduname = {setdelaypduname}
+                    setdelaycontroltopic = {setdelaycontroltopic}
+                    toggleShowSetDelay={toggleShowSetDelay}
+                    handlePublish = {handlePublish} />
             </Row>
         </Container >
         

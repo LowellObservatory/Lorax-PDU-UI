@@ -34,7 +34,7 @@ function PDUDisplay(props) {
     // both the outlet names and the outlet status's based on the broadcast status.
     useEffect(() => {
             if (props.topic === broadcast) {
-                // console.log(broadcast);
+                // console.log(props.message);
                 // get the pdu name from the message and update.
                 var pdu_name = props.message.getElementsByTagName("pdu_name");
                 pdu_name = pdu_name[0].childNodes[0].nodeValue;
@@ -123,6 +123,12 @@ function PDUDisplay(props) {
             <Row style={{ marginLeft: 10, marginRight: 20 }} >
                 <Button variant="outline-dark" size="sm" onClick={() => props.toggleShowDelays(outlets)} >
                     View Delays
+                </Button>
+            </Row>
+            <Row style={{ marginLeft: 10, marginRight: 20 }} >
+                <Button variant="outline-dark" size="sm"
+                onClick={() => props.toggleShowSetDelay(pduname, control)} >
+                    Set Delay
                 </Button>
             </Row>
         </Col>
