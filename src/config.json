@@ -10,5 +10,6 @@
         }
     },
     "Broker_Host": "tanagra:61614",
-    "Broker_URL": "ws://tanagra.lowell.edu:61614/mqtt"
+    "Broker_URL": "ws://tanagra.lowell.edu:61614/mqtt",
+    "password": "omittimo"
 }

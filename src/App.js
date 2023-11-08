@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import MainPage from './components//MainPage';
+import LoginScreen from './components//LoginScreen';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return (
+    const [currentForm, setCurrentForm] = useState('login');
+
+    const toggleForm = (formName) => {
+        setCurrentForm(formName);
+    }
+    return (
     <div id="mainpagediv">
-      <MainPage />
+        {currentForm === "login" ? <LoginScreen onFormSwitch={toggleForm} /> : <MainPage />}
     </div>
-  );
+    );
 };
 
 
