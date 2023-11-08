@@ -2,6 +2,7 @@
   "name": "lorax_pdu",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
