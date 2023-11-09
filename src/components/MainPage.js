@@ -5,14 +5,12 @@ import DelaysOffcan from './DelaysOffcan';
 import SetDelayModal from './SetDelayModal';
 import {
     Container,
-    Row,
-    Col
+    Row
 } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useBrokerMQTT from "./useBrokerMQTT";
 import configData from "../config.json";
-import './MainPage.css';
 
 
 function MainPage() {

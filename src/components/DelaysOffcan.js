@@ -1,20 +1,14 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState } from 'react';
 import {
   Offcanvas,
-  Button,
-  ButtonGroup,
   Form,
   Row,
-  Col,
-  ToggleButton
+  Col
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SwitchDelay from './SwitchDelay'
 
 function DelaysOffcan(props) {
-
-  const [radioValue, setRadioValue] = React.useState('1');
-  const [radioValue2, setRadioValue2] = React.useState('1');
 
   const { outlets, showDelays, toggleShowDelays } = props
   
@@ -67,5 +61,4 @@ function DelaysOffcan(props) {
     )
 }
 
-
-    export default DelaysOffcan;
+export default DelaysOffcan;

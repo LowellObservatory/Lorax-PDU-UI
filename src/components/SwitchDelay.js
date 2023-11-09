@@ -8,22 +8,6 @@ function SwitchDelay(props) {
 
     const [ondelay, setOndeley] = useState(props.ondelay);
     const [offdelay, setOffdelay] = useState(props.offdelay);
-    // const [drawerState, setDrawerState] = useState(false);
-   
-    // If the state of the switch (in props) changes set the switchState
-    // to that value.
-    // useEffect(() => {
-    //     setSwitchState( props.state )
-    //     setDrawerState(!drawerState);
-        
-    // }, [ props.state ])  
-
-    // The callback for when the user clicks on a switch.
-    // const handleChange=(e)=>{
-    //     setSwitchState(!switchState);
-    //     var num = props.switchnum;
-    //     props.sendSwitch(props.control_topic, num, switchState);
-    // }
 
     return (
         // The switch has a label that comes in from props and is

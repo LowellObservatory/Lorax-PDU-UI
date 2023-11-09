@@ -2,7 +2,6 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 import PDUSwitch from './PDUSwitch';
 import {
-    Container,
     Row,
     Col,
     Button
