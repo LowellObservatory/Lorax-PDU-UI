@@ -26,12 +26,10 @@ function PDUNavbar() {
         <Navbar.Toggle />
         <Navbar.Collapse>
             <Container className="justify-content-center">
-                {/* <Navbar.Text>Lorax PDU Interface</Navbar.Text> */}
                 Lorax PDU Interface
             </Container>
             <Nav className="ms-auto">
                 <NavItem>
-                    {/* <Navbar.Text>TiMo</Navbar.Text> */}
                     TiMo
                 </NavItem>
             </Nav>
